@@ -15,14 +15,14 @@ import random
 from PIL import Image
 
 
+# is_file_blank stores a state that prevents the writing of a new empty line at the end of the output
 is_file_blank = True
 
 # Open method for .raw files, outputs the volume as a Numpy array
-# DTYPE is BYTE DEPTH + ORDER
 def open_raw (path, dimx, dimy, dimz, dt):
 #    dim_img = (dimz,dimy,dimx)
     dim_img = (dimx,dimy,dimz)
-    data_type = np.dtype(dt)
+    data_type = np.dtype(dt) # dtype encompasses byte depth and order
     image = np.fromfile(path, dtype = data_type) #dtype 16bits unsigned
     image = np.reshape(image, dim_img)
     return image
@@ -45,7 +45,6 @@ def open_trk (path):
     return streamlines
     
 # Write a line with (x, y, z) cartesian information and extra 'value' free field
-# is_file_blank permet de s'affranchir automatiquement du saut de ligne généré en fin de fichier
 def write_line (cx, cy, cz, value, file):
     global is_file_blank
     
@@ -210,13 +209,15 @@ def parse_tiff (path, file_name_token, dn):
 # dn = 3
 # threshold = 0
 # datatype = '>u2'
-# main('./data/xpct_tracto_data/appps1-mouse1_522x448x400.raw', 400, 448, 522, dn, datatype, 'andrix-raw', 'output/aa-brain-part-cuboid-522x448x400-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
+# filetype = 'andrix-raw'
+# main('./data/xpct_tracto_data/appps1-mouse1_522x448x400.raw', 400, 448, 522, dn, datatype, filetype, 'output/aa-brain-part-cuboid-522x448x400-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Mouse brain // .raw
 # dn = 10
 # threshold = 1
 # datatype = '<u2'
-# main('./data/mouse_brain_LPC1_240915_ethanol_pag--deringed--rotated__1179x853x1513.raw', 1513, 853, 1179, dn, datatype, 'andrix-raw', 'output/aa-brain-full-cuboid-1179x853x1513-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
+# filetype = 'andrix-raw'
+# main('./data/mouse_brain_LPC1_240915_ethanol_pag--deringed--rotated__1179x853x1513.raw', 1513, 853, 1179, dn, datatype, filetype, 'output/aa-brain-full-cuboid-1179x853x1513-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Mask with mouse brain envelope (edges) // .raw
 # dn = 1
@@ -231,7 +232,8 @@ def parse_tiff (path, file_name_token, dn):
 # dn = 3
 # threshold = 1
 # datatype = 'u1'
-# main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_wm_erroded_760x755x545.raw', 545, 755, 760, dn, datatype, 'andrix-raw', 'output/aa-white-matter-760x755x545-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
+# filetype = 'andrix-raw'
+# main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_wm_erroded_760x755x545.raw', 545, 755, 760, dn, datatype, filetype, 'output/aa-white-matter-760x755x545-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Mask with antcom (commissure antérieure) // .raw
 # dn = 1
@@ -250,10 +252,12 @@ main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_corpuscallosummask_760x7
 # Mask with intensities // .nii
 # dn = 2
 # threshold = 1 # Mask has 255s or 0s
-# main('./data/xpct_tracto_data/appps1-mouse1_mask.nii', 522, 448, 400, dn, '', 'andrix-mask', 'output/aa-mask-522x448x400-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
+# filetype = 'andrix-mask'
+# main('./data/xpct_tracto_data/appps1-mouse1_mask.nii', 522, 448, 400, dn, '', filetype, 'output/aa-mask-522x448x400-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Mask with directions // .nii
-# main('./data/xpct_tracto_data/masked_tensor.nii', 522, 448, 400, dn, '', 'andrix-mask-dir', 'output/aa-mask-dir-522x448x400-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
+# filetype = 'andrix-mask-dir'
+# main('./data/xpct_tracto_data/masked_tensor.nii', 522, 448, 400, dn, '', filetype, 'output/aa-mask-dir-522x448x400-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Tractography with fibers // .trk
 # dn = 5
@@ -263,6 +267,7 @@ main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_corpuscallosummask_760x7
 # threshold = 7
 # dn = 30
 # parse_trk('./data/LPC2_demyel.trk', 'demyel', dn, threshold)
+
 # dn = 15
 # parse_trk('./data/LPC2_myel.trk', 'myel', dn, threshold)
 
