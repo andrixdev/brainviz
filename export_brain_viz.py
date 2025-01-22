@@ -243,11 +243,11 @@ def parse_tiff (path, file_name_token, dn):
 # main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_antcommask_760x755x545.raw', 545, 755, 760, dn, datatype, filetype, 'output/aa-antcom-760x755x545-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Mask with corpus callosum (corps calleux) // .raw
-dn = 2
-threshold = 1
-datatype = 'u1'
-filetype = 'andrix-only-coords'
-main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_corpuscallosummask_760x755x545.raw', 545, 755, 760, dn, datatype, filetype, 'output/aa-corpus-760x755x545-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
+# dn = 2
+# threshold = 1
+# datatype = 'u1'
+# filetype = 'andrix-only-coords'
+# main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_corpuscallosummask_760x755x545.raw', 545, 755, 760, dn, datatype, filetype, 'output/aa-corpus-760x755x545-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
 
 # Mask with intensities // .nii
 # dn = 2
@@ -278,3 +278,10 @@ main('./data/mouse_brain_ctrl_FA_eth_9_pag_8bit_halfdim_corpuscallosummask_760x7
 # Blood vessels skeleton // .tif
 # dn = 2
 # parse_tiff('./data/mouse_brain_ctrl_squelette.tif', 'vessels-skel', dn)
+
+# Blood vessels // .raw
+dn = 2
+threshold = 1
+filetype = 'andrix-only-coords'
+datatype = 'u1'
+main('./data/brain_ctrl_vaisseaux_cleaned.raw', 1090, 1510, 1521, dn, datatype, filetype, 'output/aa-vessels-clean-1521x1510x1090-1-in-' + str(dn) + '-thresh-' + str(threshold) + '.txt')
